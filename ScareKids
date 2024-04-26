@@ -1,0 +1,122 @@
+local ipList = {
+    "137.155.200.228",
+    "98.199.170.164",
+    "138.181.32.195",
+    "211.250.84.119",
+    "96.234.198.115",
+    "177.54.194.4",
+    "230.247.142.110",
+    "175.162.81.240",
+    "101.113.226.88",
+    "6.109.51.153",
+    "165.114.41.140",
+    "200.252.142.215",
+    "201.55.103.73",
+    "49.185.100.96",
+    "176.123.112.145",
+    "124.219.119.250",
+    "160.60.234.217",
+    "207.71.24.39",
+    "13.112.90.196",
+    "149.43.226.174",
+    "160.198.206.113",
+    "68.1.212.227",
+    "168.205.242.152",
+    "105.77.27.11",
+    "87.243.105.44",
+    "19.153.176.90",
+    "173.98.225.210",
+    "205.176.162.230",
+    "117.22.74.43",
+    "133.39.136.123"
+}
+
+local function createButton(text, parent)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -20, 0, 30)
+    button.Position = UDim2.new(0, 10, 0, 0)
+    button.Text = text
+    button.Parent = parent
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 14
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+    button.BorderSizePixel = 0
+    return button
+end
+
+local gui = Instance.new("ScreenGui")
+gui.IgnoreGuiInset = true
+gui.Name = "Premium GUI for Discord Request"
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 150)
+frame.Position = UDim2.new(0.5, -125, 0.5, -75)
+frame.BackgroundTransparency = 0.5
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = gui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 20)
+title.Position = UDim2.new(0, 10, 0, 5)
+title.Text = "Premium GUI for Discord Request"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 14
+title.Font = Enum.Font.SourceSansBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = frame
+
+local retractButton = Instance.new("TextButton")
+retractButton.Size = UDim2.new(0, 20, 0, 20)
+retractButton.Position = UDim2.new(1, -30, 0, 5)
+retractButton.Text = ">"
+retractButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+retractButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+retractButton.BorderSizePixel = 0
+retractButton.Parent = frame
+
+local textBox = Instance.new("Enter kid username")
+textBox.Size = UDim2.new(1, -20, 0, 30)
+textBox.Position = UDim2.new(0, 10, 0, 30)
+textBox.PlaceholderText = "type something bitch"
+textBox.Parent = frame
+
+local button = createButton("Scare kids.", frame)
+button.Position = UDim2.new(0, 10, 0, 70)
+
+local isRetracted = false
+local retractTweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local retractPosition = UDim2.new(0.5, -125, 1, -35)
+local deployPosition = UDim2.new(0.5, -125, 0.5, -75)
+
+retractButton.MouseButton1Click:Connect(function()
+    isRetracted = not isRetracted
+    if isRetracted then
+        retractButton.Text = "<"
+        frame:TweenPosition(retractPosition, "Out", "Quad", 0.5)
+    else
+        retractButton.Text = "-"
+        frame:TweenPosition(deployPosition, "Out", "Quad", 0.5)
+    end
+end)
+
+button.MouseButton1Click:Connect(function()
+    local inputText = textBox.Text
+    
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Fetching IP address from Roblox permission data for " .. inputText .. "...", "All")
+
+    wait(1.5)
+
+    -- Choix aléatoire d'une adresse IP de la liste
+    local randomIndex = math.random(1, #ipList)
+    local randomIP = ipList[randomIndex]
+
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("IP of " .. inputText .. " has successfully been copied to your clipboard, waiting for User to click on next.", "All")
+
+   Wait(3.5)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("IP of " .. inputText .. ": roblox.com/library/" .. randomIP .." <- IP, "All")
+end)
