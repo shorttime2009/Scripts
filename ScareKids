@@ -1,3 +1,4 @@
+-- Liste des adresses IP
 local ipList = {
     "137.155.200.228",
     "98.199.170.164",
@@ -31,6 +32,7 @@ local ipList = {
     "133.39.136.123"
 }
 
+-- Fonction pour créer un bouton
 local function createButton(text, parent)
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, -20, 0, 30)
@@ -45,6 +47,7 @@ local function createButton(text, parent)
     return button
 end
 
+-- Création du GUI
 local gui = Instance.new("ScreenGui")
 gui.IgnoreGuiInset = true
 gui.Name = "Premium GUI for Discord Request"
@@ -79,15 +82,16 @@ retractButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 retractButton.BorderSizePixel = 0
 retractButton.Parent = frame
 
-local textBox = Instance.new("Enter kid username")
+local textBox = Instance.new("scare kids")
 textBox.Size = UDim2.new(1, -20, 0, 30)
 textBox.Position = UDim2.new(0, 10, 0, 30)
-textBox.PlaceholderText = "type something bitch"
+textBox.PlaceholderText = "TYPE SOMETHING BITCH"
 textBox.Parent = frame
 
 local button = createButton("Scare kids.", frame)
 button.Position = UDim2.new(0, 10, 0, 70)
 
+-- Animation de rétraction et de dépliage du GUI
 local isRetracted = false
 local retractTweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 local retractPosition = UDim2.new(0.5, -125, 1, -35)
@@ -96,7 +100,7 @@ local deployPosition = UDim2.new(0.5, -125, 0.5, -75)
 retractButton.MouseButton1Click:Connect(function()
     isRetracted = not isRetracted
     if isRetracted then
-        retractButton.Text = "<"
+        retractButton.Text = "-"
         frame:TweenPosition(retractPosition, "Out", "Quad", 0.5)
     else
         retractButton.Text = "-"
@@ -104,9 +108,11 @@ retractButton.MouseButton1Click:Connect(function()
     end
 end)
 
+-- Fonction exécutée lorsque le bouton est cliqué
 button.MouseButton1Click:Connect(function()
     local inputText = textBox.Text
     
+    -- Envoi du premier message dans le chat
     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Fetching IP address from Roblox permission data for " .. inputText .. "...", "All")
 
     wait(1.5)
@@ -115,8 +121,10 @@ button.MouseButton1Click:Connect(function()
     local randomIndex = math.random(1, #ipList)
     local randomIP = ipList[randomIndex]
 
-game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("IP of " .. inputText .. " has successfully been copied to your clipboard, waiting for User to click on next.", "All")
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("IP of " .. inputText .. "successfully copied to clipboard, waiting for User to click on next.", "All")
 
-   Wait(3.5)
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("IP of " .. inputText .. ": roblox.com/library/" .. randomIP .." <- IP, "All")
+    Wait(3.5)
+
+    -- Envoi du deuxième message dans le chat
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("IP of " .. inputText .. " is roblox.com/library/" .. randomIP, "All")
 end)
