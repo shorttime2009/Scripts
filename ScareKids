@@ -82,7 +82,7 @@ retractButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 retractButton.BorderSizePixel = 0
 retractButton.Parent = frame
 
-local textBox = Instance.new("scare kids")
+local textBox = Instance.new("TextBox")
 textBox.Size = UDim2.new(1, -20, 0, 30)
 textBox.Position = UDim2.new(0, 10, 0, 30)
 textBox.PlaceholderText = "TYPE SOMETHING BITCH"
